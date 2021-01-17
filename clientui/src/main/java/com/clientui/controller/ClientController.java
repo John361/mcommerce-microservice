@@ -6,6 +6,8 @@ import com.clientui.beans.ProductBean;
 import com.clientui.proxies.MicroserviceCommandeProxy;
 import com.clientui.proxies.MicroservicePaiementProxy;
 import com.clientui.proxies.MicroserviceProduitProxy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,8 @@ import java.util.concurrent.ThreadLocalRandom;
 @Controller
 public class ClientController {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private MicroserviceProduitProxy produitProxy;
 
@@ -35,6 +39,7 @@ public class ClientController {
         List<ProductBean> produits = this.produitProxy.listeDesProduits();
         model.addAttribute("produits", produits);
 
+        this.logger.info("Envoi requête vers microservice-produits");
         return "accueil";
     }
 
