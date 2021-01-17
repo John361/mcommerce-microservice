@@ -7,6 +7,8 @@ import com.mproduits.web.exceptions.ProductNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class ProductController {
+public class ProductController /*implements HealthIndicator*/ {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -50,5 +52,15 @@ public class ProductController {
 
         return product;
     }
-}
 
+    /*@Override
+    public Health health() {
+        List<Product> products = this.productDao.findAll();
+
+        if (products.isEmpty()) {
+            return Health.down().build();
+        }
+
+        return Health.down().build();
+    }*/
+}
